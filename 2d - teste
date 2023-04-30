@@ -1,0 +1,48 @@
+import pygame
+
+pygame.init()
+
+# Cria uma janela para o jogo
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+
+# Carrega a imagem do personagem
+character_image = pygame.image.load("character.png").convert_alpha()
+
+# Cria um objeto do personagem e define sua posição inicial
+character = pygame.sprite.Sprite()
+character.image = character_image
+character.rect = character_image.get_rect()
+character.rect.x = screen_width // 2
+character.rect.y = screen_height // 2
+
+# Define a velocidade do personagem
+character_speed = 5
+
+# Cria o loop principal do jogo
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    
+    # Move o personagem com as setas do teclado
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        character.rect.x -= character_speed
+    if keys[pygame.K_RIGHT]:
+        character.rect.x += character_speed
+    if keys[pygame.K_UP]:
+        character.rect.y -= character_speed
+    if keys[pygame.K_DOWN]:
+        character.rect.y += character_speed
+    
+    # Desenha o personagem na tela
+    screen.blit(character.image, character.rect)
+    
+    # Atualiza a tela
+    pygame.display.flip()
+
+# Finaliza o jogo
+pygame.quit()
